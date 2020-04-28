@@ -24,7 +24,7 @@ class YahooNewsCommentScraping:
     # コメント取得
     def get_comment(self, comment_box):
         elem_comment = comment_box.find_element_by_class_name("cmtBody")
-        comment = elem_comment.text.split("\n")
+        comment = "".join(elem_comment.text.split("\n"))
         self.comments.append(comment)
         print(comment)
     
