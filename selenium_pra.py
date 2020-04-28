@@ -1,4 +1,5 @@
 # yahooコメント欄からコメント、ユーザー名、日付、賛成数、反対数を取得するコード
+# end と url を標準入力から受け取る
 
 import csv
 import time
@@ -16,15 +17,17 @@ class YahooNewsCommentScraping:
     start = 1
     cou = 0
     
-    def __init__(self, end):
+    def __init__(self, end, url):
         self.end = end
+        self.url = url
     
     def scrape(self):
         driver = webdriver.Chrome()
         for page in range(self.start, self.end):
-            url = "https://headlines.yahoo.co.jp/cm/main?d=20200428-00050198-yom-soci&s=lost_points&o=desc&t=t&p={}".format(page)
-            driver.get(url)
-            time.sleep(6)
+            
+            self.url = self.url + "&s=lost_points&o=desc&t=t&p={}".format(page)
+            driver.get(self.url)
+            time.sleep(5)
             iframe = driver.find_element_by_class_name("news-comment-plguin-iframe")
             driver.switch_to.frame(iframe)
 
@@ -70,9 +73,10 @@ class YahooNewsCommentScraping:
 
 def main():
     input_end = int(input())
-    obj = YahooNewsCommentScraping(input_end)
+    input_url = input()
+    obj = YahooNewsCommentScraping(input_end, input_url)
     obj.scrape()
 
 if __name__ == "__main__":
     main()
-
+#url = "https://headlines.yahoo.co.jp/cm/main?d=20200428-00050198-yom-soci&s=lost_points&o=desc&t=t&p={}".format(page)
