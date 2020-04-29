@@ -4,6 +4,9 @@
 import csv
 import time
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+
 
 class YahooNewsCommentScraping:
     
@@ -64,7 +67,12 @@ class YahooNewsCommentScraping:
                 writer.writerow([self.comments[i], self.names[i], self.dates[i], self.agrees[i], self.disagrees[i]])
 
     def scrape(self):
-        driver = webdriver.Chrome()
+        # ブラウザのオプションを格納する変数をもらってきます。
+        options = Options()
+
+        # Headlessモードを有効にする（コメントアウトするとブラウザが実際に立ち上がります）
+        options.set_headless(True)
+        driver = webdriver.Chrome(chrome_options=options)
         for page in range(self.start, self.end):
             
             self.url = self.url + "&s=lost_points&o=desc&t=t&p={}".format(page)
