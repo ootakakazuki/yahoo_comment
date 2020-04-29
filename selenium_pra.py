@@ -75,9 +75,9 @@ class YahooNewsCommentScraping:
         for page in range(self.start, self.end):
             
             self.url = self.url + "&s=lost_points&o=desc&t=t&p={}".format(page)
-            driver.implicitly_wait(4)
             driver.get(self.url)
-            #time.sleep(4)
+            #driver.implicitly_wait(7)
+            time.sleep(5)
             iframe = driver.find_element_by_class_name("news-comment-plguin-iframe")
             driver.switch_to.frame(iframe)
 
