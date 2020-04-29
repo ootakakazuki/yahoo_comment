@@ -67,16 +67,13 @@ class YahooNewsCommentScraping:
 
     def scrape(self):
         # ブラウザのオプションを格納する変数をもらってきます。
-        options = Options()
-
-        # Headlessモードを有効にする（コメントアウトするとブラウザが実際に立ち上がります）
-        options.set_headless(True)
-        driver = webdriver.Chrome(chrome_options=options)
+        options = webdriver.ChromeOptions() 
+        options.add_argument('headless') 
+        driver = webdriver.Chrome(options=options) 
         for page in range(self.start, self.end):
             
             self.url = self.url + "&s=lost_points&o=desc&t=t&p={}".format(page)
             driver.get(self.url)
-            #driver.implicitly_wait(7)
             time.sleep(5)
             iframe = driver.find_element_by_class_name("news-comment-plguin-iframe")
             driver.switch_to.frame(iframe)
