@@ -32,7 +32,7 @@ class YahooNewsCommentScraping:
     
     # ユーザー名取得
     def get_user_name(self, comment_box):
-        elem_name = comment_box.find_element_by_class_name("rapid-noclick-resp")
+        elem_name = comment_box.find_element_by_class_name("rapidnofollow")
         name = elem_name.text
         self.names.append(name)
 
@@ -72,8 +72,9 @@ class YahooNewsCommentScraping:
         driver = webdriver.Chrome(options=options) 
         for page in range(self.start, self.end):
             
-            self.url = self.url + "&s=lost_points&o=desc&t=t&p={}".format(page)
-            driver.get(self.url)
+            #self.url = self.url + "&s=lost_points&o=desc&t=t&p={}".format(page)
+            #self.url = self.url + "{}".format(page)
+            driver.get(self.url + str(page))
             time.sleep(5)
             iframe = driver.find_element_by_class_name("news-comment-plguin-iframe")
             driver.switch_to.frame(iframe)
